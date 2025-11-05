@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_file, render_template
 import re
 from io import BytesIO
+import os
 import pandas as pd
 import pickle
 import base64
@@ -8,28 +9,6 @@ import matplotlib
 matplotlib.use('Agg')  # Set backend before importing pyplot
 import matplotlib.pyplot as plt
 import nltk
-
-# Download required NLTK data (for Streamlit Cloud deployment)
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords', quiet=True)
-    
-try:
-    nltk.data.find('corpora/wordnet')
-except LookupError:
-    nltk.download('wordnet', quiet=True)
-    
-try:
-    nltk.data.find('taggers/averaged_perceptron_tagger')
-except LookupError:
-    nltk.download('averaged_perceptron_tagger', quiet=True)
-    
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt', quiet=True)
-
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
@@ -121,6 +100,5 @@ def predict_sentiment(text):
     return "Positive" if prediction == 1 else "Negative"
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
