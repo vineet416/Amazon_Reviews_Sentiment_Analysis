@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from review_inputs import normalize_review_dataframe
 
 app = Flask(__name__)
 
@@ -66,6 +67,7 @@ def predict():
         if "file" in request.files:
             file = request.files["file"]
             data = pd.read_csv(file)
+            data = normalize_review_dataframe(data)
             data["Predicted"] = data["Sentence"].apply(lambda x: predict_sentiment(x))
             
             # Generate graph
