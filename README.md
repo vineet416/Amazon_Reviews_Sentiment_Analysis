@@ -1,269 +1,72 @@
-# Amazon Alexa Reviews Sentiment Analysis 🎤📊
-
-A comprehensive machine learning project that performs sentiment analysis on Amazon Alexa product reviews. This project includes exploratory data analysis, multiple classification models, and a Flask web application for real-time predictions.
-
-![Python](https://img.shields.io/badge/Python-3.12-blue.svg)
-![Flask](https://img.shields.io/badge/Flask-Web%20App-green.svg)
-![ML](https://img.shields.io/badge/ML-XGBoost-orange.svg)
-
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Dataset](#dataset)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Model Performance](#model-performance)
-- [Technologies Used](#technologies-used)
-- [API Endpoints](#api-endpoints)
-- [Screenshots](#screenshots)
-- [Future Enhancements](#future-enhancements)
-- [License](#license)
-
-## 🎯 Overview
-
-This project analyzes customer sentiment from Amazon Alexa product reviews using Natural Language Processing (NLP) and Machine Learning techniques. The system can classify reviews as either **Positive** or **Negative**, helping businesses understand customer feedback at scale.
-
-The project includes:
-- 📊 Comprehensive data exploration and visualization
-- 🧹 Text preprocessing with lemmatization and stopword removal
-- 🤖 Multiple ML models (Naive Bayes, Random Forest, XGBoost)
-- 🌐 Interactive Flask web application
-- 📁 Batch prediction support via CSV upload
-- 📈 Visual analytics and sentiment distribution
-
-## ✨ Features
-
-- **Single Text Prediction**: Analyze sentiment of individual review texts
-- **Bulk Prediction**: Upload CSV files for batch sentiment analysis
-- **Visual Analytics**: Automatic pie chart generation showing sentiment distribution
-- **Pre-trained Models**: Ready-to-use XGBoost classifier with TF-IDF vectorization
-- **REST API**: JSON-based API for integration with other applications
-- **Text Preprocessing**: Advanced NLP pipeline with lemmatization and POS tagging
-- **Responsive UI**: Clean, user-friendly web interface
-
-## 📁 Project Structure
-
-```
-Amazon Alexa Reviews Sentiment Analysis/
-│
-├── app.py                              # Flask application
-├── requirements.txt                    # Python dependencies
-├── README.md                           # Project documentation
-│
-├── Data/
-│   ├── amazon_alexa.tsv               # Original dataset
-│   ├── predictions.csv                # Sample predictions output
-│   └── SentimentBulk.csv              # Bulk prediction sample
-│
-├── Models/
-│   ├── xgboost_model.pkl              # Trained XGBoost classifier
-│   └── tfidfVectorizer.pkl            # Fitted TF-IDF vectorizer
-│
-├── templates/
-│   ├── landing.html                   # Landing page
-│   └── index.html                     # Prediction interface
-│
-├── Data Exploration & Modeling.ipynb  # Complete EDA and modeling notebook
-│
-└── alexa/                             # Python virtual environment
-```
-
-## 📊 Dataset
-
-The dataset contains Amazon Alexa product reviews with the following characteristics:
-
-- **Source**: Amazon customer reviews for Alexa devices - ([Kaggle Dataset](https://www.kaggle.com/datasets/sid321axn/amazon-alexa-reviews))
-- **Format**: Tab-separated values (TSV)
-- **Features**:
-  - `rating`: Product rating (1-5 stars)
-  - `date`: Review date
-  - `variation`: Alexa device variant
-  - `verified_reviews`: Customer review text
-  - `feedback`: Sentiment label (1 = Positive, 0 = Negative)
-
-## 🚀 Installation
-
-### Prerequisites
-
-- Python 3.12 or higher
-- pip package manager
-
-### Setup Steps
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/vineet416/Amazon_Reviews_Sentiment_Analysis.git
-cd Amazon_Reviews_Sentiment_Analysis
-```
-
-2. **Create a virtual environment** (Optional but recommended)
-```bash
-conda create -p alexa python=3.12 -y
-conda activate alexa/
-```
-
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Download NLTK data**
-```python
-python -c "import nltk; nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger'); nltk.download('punkt')"
-```
-
-## 💻 Usage
-
-### Running the Web Application
-
-1. **Start the Flask server**
-```bash
-python app.py
-```
-
-2. **Access the application**
-   - Open your browser and navigate to `http://localhost:5000`
-   - You'll see the landing page with options to start predictions
-
-### Single Text Prediction
-
-1. Navigate to the prediction page
-2. Enter your review text in the input field
-3. Click "Predict Sentiment"
-4. View the result (Positive/Negative)
-
-### Bulk Prediction (CSV Upload)
-
-1. Prepare a CSV file with a column named `Sentence` containing reviews
-2. Upload the file through the web interface
-3. Download the predictions CSV file
-4. View the sentiment distribution pie chart
-
-### API Usage
-
-**Endpoint**: `/predict`
-
-**Method**: `POST`
-
-**Request Body** (JSON):
-```json
-{
-  "text": "I love my new Alexa device! It works perfectly."
-}
-```
-
-**Response**:
-```json
-{
-  "result": "Positive"
-}
-```
-
-## 📈 Model Performance
-
-The project evaluates multiple machine learning algorithms:
-
-| Model | Accuracy | Description |
-|-------|----------|-------------|
-| **XGBoost** | ~94-96% | Best performing model (deployed) |
-| Random Forest | ~93-95% | Strong ensemble method |
-| SVM | ~91-93% | Support Vector Machine with RBF kernel |
-| Logistic Regression | ~89-91% | Baseline linear model |
-
-**Key Metrics**:
-- Precision: High precision for both classes
-- Recall: Balanced recall scores
-- F1-Score: Strong F1-scores indicating good overall performance
-
-## 🛠️ Technologies Used
-
-### Core Technologies
-- **Python 3.12**: Primary programming language
-- **Flask**: Web framework for the application
-- **scikit-learn**: Machine learning library
-- **XGBoost**: Gradient boosting framework
-- **NLTK**: Natural Language Processing
-
-### Data Science Stack
-- **Pandas**: Data manipulation and analysis
-- **NumPy**: Numerical computing
-- **Matplotlib**: Data visualization
-- **Seaborn**: Statistical data visualization
-- **WordCloud**: Text visualization
-
-### NLP Preprocessing
-- **TF-IDF Vectorization**: Text feature extraction
-- **Lemmatization**: Word normalization
-- **POS Tagging**: Part-of-speech identification
-- **Stopwords Removal**: Noise reduction
-
-## 🔌 API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Landing page |
-| `/predict` | GET | Prediction interface page |
-| `/predict` | POST | Predict sentiment (text or file) |
-
-## 📸 Screenshots
-
-### Landing Page
-The home page provides an introduction to the sentiment analysis tool.      
-![Landing Page](./Landing_Page.png)
-
-### Prediction Interface
-Users can input text or upload CSV files for sentiment analysis.        
-![Prediction Interface](./Prediction_Interface.png)
-
-### Results Display
-Shows prediction results with visual analytics for bulk predictions.        
-![Results Display - Negative](./Results_Display_Negative.png)       
-
-![Results Display - Positive & Batch Analysis](./Results_Display_Positive_&_Batch_Analysis.png)     
-
-## 📝 Key Insights
-
-From the exploratory data analysis:
-
-1. **Class Distribution**: Most reviews are positive, reflecting high customer satisfaction
-2. **Text Length**: Review length correlates with sentiment intensity
-3. **Rating Correlation**: Strong correlation between star ratings and sentiment
-4. **Common Words**: Positive reviews mention "love", "great", "easy"; negative reviews mention "not", "work", "poor"
-5. **Device Variations**: Certain Alexa models receive more positive feedback
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 👨‍💻 Author
-
-**Vineet Patel**
-- Email: vineetpatel468@gmail.com
-- GitHub: [@vineet416](https://github.com/vineet416)
-- LinkedIn: [@vineet416](https://www.linkedin.com/in/vineet416/)
-
-## 🙏 Acknowledgments
-
-- Amazon for the Alexa reviews dataset
-- scikit-learn and XGBoost communities
-- Flask framework developers
-- NLTK contributors
-
-## 📧 Contact
-
-For questions or feedback, please open an issue in the repository.
-
----
-
-⭐ If you found this project helpful, please give it a star!
+# Amazon Alexa Reviews Sentiment Analysis
+
+Classifies Amazon Alexa customer reviews as **Positive** or **Negative**. The project explores 3,150 reviews, trains a TF-IDF + XGBoost classifier, and serves it through a small Flask app for single-text and CSV batch predictions. It turns raw review text into sentiment signals that are quick to scan.
+
+## Project Files
+
+| File | Description |
+|------|-------------|
+| `Data Exploration & Modeling.ipynb` | EDA, text cleaning, TF-IDF features, trains and compares 3 models |
+| `Data/amazon_alexa.tsv` | Raw dataset: 3,150 reviews, 5 columns |
+| `Data/SentimentBulk.csv` | 7-review sample input for batch prediction (`Sentence` column) |
+| `Data/predictions.csv` | Sample app output for that input (adds `Predicted` column) |
+| `Models/xgboost_model.pkl` | Trained XGBoost classifier used by the app |
+| `Models/tfidfVectorizer.pkl` | Fitted TF-IDF vectorizer (2,500 features, 1–2 grams) |
+| `app.py` | Flask app: landing page, prediction page, `POST /predict` for text or CSV |
+| `templates/landing.html`, `templates/index.html` | Landing page and prediction UI |
+| `*.png` (4 files) | Screenshots of the landing page, prediction UI and results |
+| `requirements.txt`, `LICENSE` | Python dependencies (unpinned); MIT license |
+
+## Dataset
+
+Source: [Kaggle – Amazon Alexa Reviews](https://www.kaggle.com/datasets/sid321axn/amazon-alexa-reviews) · Tab-separated · 16 May – 31 Jul 2018 (92.5% in July) · 16 product variations.
+
+| Column | Description |
+|--------|-------------|
+| `rating` | Star rating, 1–5 |
+| `date` | Review date (`dd-Mon-yy`) |
+| `variation` | Product variant (e.g. `Black  Dot`, `Charcoal Fabric`, `Configuration: Fire TV Stick`) |
+| `verified_reviews` | Review text |
+| `feedback` | Sentiment label: 1 = positive, 0 = negative |
+| `length` | Character count of the review (derived in the notebook) |
+
+## Approach
+
+1. **Understand the data** – load the TSV, check shape, types, nulls, and the distribution of rating, feedback, variation and review length; word clouds per class.
+2. **Clean** – drop the 1 null review (3,150 → 3,149). For text: keep letters only, lowercase, tokenise, POS-tag, lemmatise, remove stopwords (keeping "not").
+3. **Features and split** – TF-IDF with up to 2,500 uni/bi-gram features; 70/30 split, `random_state=15` (2,204 train / 945 test).
+4. **Model** – Naive Bayes, Random Forest, XGBoost; compare accuracy, precision, recall, F1 and confusion matrices; save XGBoost.
+5. **Report and serve** – Flask app returns a label for one review, or a predictions CSV plus a sentiment pie chart for a batch.
+
+## Key Insights
+
+All dataset figures are recomputed from `amazon_alexa.tsv` (3,149 rows after cleaning).
+- **Ratings skew high:** 72.6% are 5-star, 87.0% are 4+; mean rating 4.46.
+- **Imbalanced labels:** 2,893 positive (91.9%) vs 256 negative (8.1%); ratings 1–2 → negative, 3–5 → positive.
+- **Unhappy reviews are longer:** mean 217 vs 125 characters (median 138 vs 70).
+- **Variation matters:** Charcoal Fabric scores highest among large groups (4.73 avg, 2.8% negative); plain White (4.17, 17.8% negative) and Black (4.23, 13.4%) score lowest.
+- **Negative share fell over time:** 7.6% in July vs 13.4% (May) and 14.9% (June), though May–June hold only 236 reviews.
+
+Model results on the 945-review test set (positive-class precision/recall; notebook outputs):
+
+| Model | Accuracy | Precision | Recall | F1 | Negatives caught (of 78) |
+|-------|----------|-----------|--------|----|--------------------------|
+| Naive Bayes | 91.75% | 0.9175 | 1.0000 | 0.9570 | 0 |
+| Random Forest | 94.29% | 0.9433 | 0.9977 | 0.9697 | 26 |
+| **XGBoost (deployed)** | **95.24%** | 0.9587 | 0.9908 | 0.9745 | 41 |
+
+Always predicting "Positive" scores 91.75%, so XGBoost gains ~3.5 points and catches only 52.6% of negatives (41 of 78).
+
+## Tech Stack
+
+- **Analysis and NLP:** Python 3.12, pandas, NumPy, Matplotlib, Seaborn, WordCloud, NLTK (POS tagging, lemmatising), TF-IDF n-grams
+- **Modelling:** scikit-learn (Naive Bayes, Random Forest, metrics), XGBoost
+- **App:** Flask, HTML/JS templates
+
+## How to Use
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Download NLTK data: `stopwords`, `wordnet`, `punkt`, `averaged_perceptron_tagger` (newer NLTK also needs `punkt_tab` and `averaged_perceptron_tagger_eng`).
+3. Start the app: `python app.py`, then open `http://localhost:5000`.
+4. Predict: type a review on the page, or `POST /predict` with `{"text": "..."}` → `{"result": "Positive"}`. For batch, upload a CSV with a `Sentence` column; you get `predictions.csv` and a pie chart.
+5. Notebook: run `Data Exploration & Modeling.ipynb` top to bottom. It reads `Data\amazon_alexa.tsv`; change the path separator on macOS/Linux.
