@@ -1,5 +1,5 @@
 # Amazon Alexa Reviews Sentiment Analysis
-
+ 
 Classifies Amazon Alexa customer reviews as **Positive** or **Negative**. The project explores 3,150 reviews, trains a TF-IDF + XGBoost classifier, and serves it through a small Flask app for single-text and CSV batch predictions. It turns raw review text into sentiment signals that are quick to scan.
 
 ## Project Files
